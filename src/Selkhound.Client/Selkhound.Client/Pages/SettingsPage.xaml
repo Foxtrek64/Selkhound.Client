@@ -8,14 +8,16 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <SplitView>
-            <SplitView.Content>
-                <TextBlock>Content</TextBlock>
-            </SplitView.Content>
-            <SplitView.Pane>
-                <TextBlock>Pane</TextBlock>
-            </SplitView.Pane>
-        </SplitView>
-    </Grid>
+    <NavigationView x:Name="SettingsNavView"
+                    PaneDisplayMode="Left"
+                    IsBackEnabled="True"
+                    Header="Settings"
+                    BackRequested="SettingsNavView_BackRequested"
+                    SelectionChanged="SettingsNavView_SelectionChanged"
+                    Loaded="SettingsNavView_Loaded"
+                    IsSettingsVisible="False">
+        <NavigationView.MenuItems>
+            <NavigationViewItem Icon="Accept" Content="Hello world!" />
+        </NavigationView.MenuItems>
+    </NavigationView>
 </Page>

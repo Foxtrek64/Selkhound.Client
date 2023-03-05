@@ -1,8 +1,33 @@
-﻿using Microsoft.Extensions.Logging;
+﻿//
+//  App.cs
+//
+//  Author:
+//       LuzFaltex Contributors
+//
+//  LGPL-3.0 License
+//
+//  Copyright (c) 2022 LuzFaltex
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU Lesser General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU Lesser General Public License for more details.
+//
+//  You should have received a copy of the GNU Lesser General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+
+using System;
+using JetBrains.Annotations;
+using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 
@@ -14,8 +39,9 @@ namespace Selkhound.Client
     public partial class App : Application
     {
         /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
+        /// Initializes a new instance of the <see cref="App"/> class.
+        /// This is the first line of authored code executed, and as
+        /// such is the logical equivalent of main() or WinMain().
         /// </summary>
         /// <remarks>
         /// If you're looking for App.xaml.cs, the file is present in each platform head
@@ -28,7 +54,7 @@ namespace Selkhound.Client
         /// <summary>
         /// Gets the main window of the app.
         /// </summary>
-        internal static Window MainWindow { get; private set; }
+        internal static Window MainWindow { get; private set; } = null!;
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
@@ -38,15 +64,15 @@ namespace Selkhound.Client
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
 #if DEBUG
-		if (System.Diagnostics.Debugger.IsAttached)
-		{
-			// this.DebugSettings.EnableFrameRateCounter = true;
-		}
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                // this.DebugSettings.EnableFrameRateCounter = true;
+            }
 #endif
 
 #if NET6_0_OR_GREATER && WINDOWS && !HAS_UNO
-		MainWindow = new Window();
-		MainWindow.Activate();
+            MainWindow = new Window();
+            MainWindow.Activate();
 #else
             MainWindow = Microsoft.UI.Xaml.Window.Current;
 #endif
@@ -80,17 +106,19 @@ namespace Selkhound.Client
                     // parameter
                     rootFrame.Navigate(typeof(MainPage), args.Arguments);
                 }
+
                 // Ensure the current window is active
                 MainWindow.Activate();
             }
         }
 
         /// <summary>
-        /// Invoked when Navigation to a certain page fails
+        /// Invoked when Navigation to a certain page fails.
         /// </summary>
-        /// <param name="sender">The Frame which failed navigation</param>
-        /// <param name="e">Details about the navigation failure</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        /// <param name="sender">The Frame which failed navigation.</param>
+        /// <param name="e">Details about the navigation failure.</param>
+        [UsedImplicitly]
+        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new InvalidOperationException($"Failed to load {e.SourcePageType.FullName}: {e.Exception}");
         }
@@ -102,10 +130,12 @@ namespace Selkhound.Client
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>
+        [UsedImplicitly]
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Save the application state and stop any background activity
+
+            // TODO: Save the application state and stop any background activity
             deferral.Complete();
         }
     }

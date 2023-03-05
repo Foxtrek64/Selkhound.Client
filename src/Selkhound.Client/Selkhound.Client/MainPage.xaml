@@ -14,13 +14,23 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Grid x:Name="AppTitleBar">
+        <Grid x:Name="AppTitleBar" Background="Transparent">
+            <!-- Width of the padding columns is set in LayoutMetricsChanged buffer. -->
+            <!-- Using padding columns instead of Margin ensures that the background
+                paints the area under the caption control buttons (for transparent buttons). -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="LeftPaddingColumn" Width="0" />
+                <ColumnDefinition />
+                <ColumnDefinition x:Name="RightPaddingColumn" Width="0" />
+            </Grid.ColumnDefinitions>
             <Image Source="Images/WindowIcon.png"
+                   Grid.Column="1"
                    HorizontalAlignment="Left"
                    Width="16"
                    Height="16"
                    Margin="8,0" />
             <TextBlock x:Name="AppTitleTextBlock"
+                       Grid.Column="1"
                        Text="Selkhound"
                        TextWrapping="NoWrap"
                        Style="{StaticResource CaptionTextBlockStyle}"
@@ -28,7 +38,24 @@
                        Margin="28, 0, 0, 0"/>
         </Grid>
 
-        <Frame x:Name="MainFrame"  NavigationFailed="MainFrame_NavigationFailed"/>
+        <NavigationView x:Name="MainNavView"
+                        PaneDisplayMode="LeftCompact"
+                        IsBackEnabled="False"
+                        SelectionChanged="MainNavView_SelectionChanged"
+                        Loaded="MainNavView_Loaded"
+                        Grid.Row="1">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Icon="Home" Content="Home" Tag="home" />
+                <NavigationViewItem Icon="OtherUser" Content="Private Chats" Tag="conversations" />
+                <NavigationViewItem Icon="SyncFolder" Content="Communities" Tag="communities"/>
+            </NavigationView.MenuItems>
+
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem Icon="Admin" Content="Administration" Tag="admin" />
+            </NavigationView.FooterMenuItems>
+
+            <Frame x:Name="MainNavContentFrame" IsTabStop="True" NavigationFailed="MainNavContentFrame_NavigationFailed" />
+        </NavigationView>
 
     </Grid>
     

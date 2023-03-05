@@ -8,22 +8,8 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <NavigationView x:Name="HomeNavView"
-                        PaneDisplayMode="LeftCompact"
-                        IsBackEnabled="False"
-                        SelectionChanged="HomeNavView_SelectionChanged"
-                        Loaded="HomeNavView_Loaded">
-        <NavigationView.MenuItems>
-            <NavigationViewItem Icon="Home" Content="Home" Tag="home" />
-            <NavigationViewItem Icon="OtherUser" Content="Private Chats" Tag="conversations" />
-            <NavigationViewItem Icon="SyncFolder" Content="Communities" Tag="communities"/>
-        </NavigationView.MenuItems>
-
-        <NavigationView.FooterMenuItems>
-            <NavigationViewItem Icon="Admin" Content="Administration" Tag="admin" />
-        </NavigationView.FooterMenuItems>
-
-        <Frame x:Name="HomeNavContentFrame" IsTabStop="True" NavigationFailed="HomeNavContentFrame_NavigationFailed" />
-    </NavigationView>
+    <Grid>
+        
+    </Grid>
     
 </Page>
